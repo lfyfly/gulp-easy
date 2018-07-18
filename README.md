@@ -7,6 +7,7 @@
 - 支持开发环境和打包生成`sourceMap`
 - 支持文件变动自动刷新浏览器，css是热更新（css改动无需刷新浏览器即可更新）
 - 支持新增文件没无需重启gulp，即可改动自动刷新浏览器
+- 支持命令生成雪碧图和对应css
 - 支持eslint，使用的eslint插件是[eslint-config-alloy](https://github.com/AlloyTeam/eslint-config-alloy)
 - 支持打包html，css，js图片压缩，css中小图片转base64
 - 支持css，js文件版本hash值，文件无变动则版本hash不会改变，更好利用缓存
@@ -15,16 +16,19 @@
 
 ## 2、如何使用
 ### 2.1 下载项目
-#### （1） `git clone https://github.com/lfyfly/dev-easy.git`或者下载 `zip包`
-#### （2）删除项目下的因此目录`.git`文件夹，这是我的commit记录，所以删除
-#### （3）`npm install` 安装依赖
-#### （4）`npm run dev`
+ （1） `git clone https://github.com/lfyfly/dev-easy.git`或者下载 `zip包`
+ 
+ （2）删除项目下的因此目录`.git`文件夹，这是我的commit记录，所以删除
+
+ （3）`npm install` 安装依赖
+
+ （4）`npm run dev`
 
 ### 2.2 命令
-#### `npm run dev`
+### `npm run dev`
 进入开发模式
 
-#### `npm run build`
+### `npm run build`
 打包命令
 
 ### `npm run start`
@@ -45,12 +49,12 @@ eslint修复
 静态文件目录
 #### 3.2 `src/static/_vendor`
 第三方js，css，iconfont等
-#### 3.3 `src/static/_scss`
+#### 3.3 `src/_scss`
 scss模块目录，里面的`.scss`文件不会被单独编译成css文件
-#### 3.4`src/static/_pug`
+#### 3.4`src/_pug`
 pug模块目录，里面的`.pug`文件不会被单独编译成html文件
 
-#### 4.5 `src/static/_modules`
+#### 4.5 `src/_modules`
 该目录里面的`.pug`,`.scss`文件不会被单独编译成html文件
 
 ## 4、功能配置文件
