@@ -1,0 +1,18 @@
+
+extends ./_pug/page.pug
+block head
+  title 关于我们
+  link(rel="stylesheet", href="static/pages/index/index.css")
+
+block header
+  include ./_modules/header/header.pug
+
+block main
+  main
+    h1 index-main
+    a(href="about.html") to-about-page
+block footer
+  include ./_modules/footer/footer.pug
+
+block scripts
+  script(src="static/pages/index/index.js")
