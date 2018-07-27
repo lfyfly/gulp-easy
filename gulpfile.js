@@ -147,7 +147,7 @@ gulp.task('babel', function () {
     .pipe(gulp.dest(config.tmpPath))
 })
 // build
-gulp.task('build', ['del_dist', 'move__vendor', 'build_css', 'build_js', 'jpgmin', 'pngmin'], function () {
+gulp.task('build', ['del_dist', 'move__vendor', 'build_css', 'build_js', 'imgmin'], function () {
   gulp.start('build_html')
 })
 
@@ -219,27 +219,13 @@ gulp.task('build_js', function () {
 
 // 图片压缩
 const imagemin = require('gulp-imagemin')
-const imageminMozjpeg = require('imagemin-mozjpeg')
+const mozjpeg = require('imagemin-mozjpeg')
+const pngquant = require('imagemin-pngquant')
 const cache = require('gulp-cache') // 缓存压缩图片，避免重复压缩
-const tiny = require('gulp-tinypng-nokey')
 
-gulp.task('jpgmin', function () {
-  gulp.src(`${config.srcPath}/**/*.{jpg,jpeg}`)
-    .pipe(cache(imagemin(
-      [
-        imagemin.optipng(),
-        imageminMozjpeg({ quality: 70 }),
-      ],
-      {
-        verbose: true,
-      }
-    )))
-    .pipe(gulp.dest('dist'))
-})
-
-gulp.task('pngmin', function () {
-  gulp.src(`${config.srcPath}/**/*.png`)
-    .pipe(cache(tiny()))
+gulp.task('imgmin', function () {
+  gulp.src(`${config.srcPath}/**/*.{jpg,jpeg,png}`)
+    .pipe(cache(imagemin([mozjpeg({ quality: 70 }), pngquant({ quality: 70 })])))
     .pipe(gulp.dest('dist'))
 })
 

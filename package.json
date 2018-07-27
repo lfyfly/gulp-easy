@@ -54,6 +54,7 @@
     "gulp-uglify": "^3.0.0",
     "gulp.spritesmith": "^6.9.0",
     "http-proxy-middleware": "^0.18.0",
-    "imagemin-mozjpeg": "^7.0.0"
+    "imagemin-mozjpeg": "^7.0.0",
+    "imagemin-pngquant": "^6.0.0"
   }
 }
