@@ -49,8 +49,8 @@ gulp.task('dev', ['del_tmp'].concat(config.pug ? ['pug'] : []).concat((config.sa
 
   chokidar.watch(config.srcPath, { ignoreInitial: true, ignorePermissionErrors: true })
     .on('all', (event, filePath) => {
-      var task
-      var deleteFilePath
+      let task
+      let deleteFilePath
       try {
         console.log('【 src 】', event, path.resolve(__dirname, filePath))
         // 删除文件时，删除缓存
@@ -160,7 +160,7 @@ gulp.task('move__vendor', function () {
   gulp.src(`${config.srcPath}/static/_vendor/**/*.*`)
     .pipe(gulp.dest('dist/static/_vendor'))
 })
-var htmlminConfig = {
+const htmlminConfig = {
   // removeComments: true,//清除HTML注释
   collapseWhitespace: true, // 压缩HTML
   // collapseBooleanAttributes: true,//省略布尔属性的值 <input checked='true'/> ==> <input />
@@ -170,11 +170,11 @@ var htmlminConfig = {
   minifyJS: true, // 压缩页面JS
   minifyCSS: true// 压缩页面CSS
 }
-var revReplace = require('gulp-rev-replace')
-var prefix = require('gulp-prefix')
+const revReplace = require('gulp-rev-replace')
+const prefix = require('gulp-prefix')
 gulp.task('build_html', function () {
-  var manifestJs
-  var manifestCss
+  let manifestJs
+  let manifestCss
   if (config.build.versionHash) {
     manifestJs = gulp.src('rev-manifest-js.json')
     manifestCss = gulp.src('rev-manifest-css.json')
@@ -188,7 +188,7 @@ gulp.task('build_html', function () {
     .pipe(gulp.dest('dist'))
 })
 
-var base64 = require('gulp-base64')
+const base64 = require('gulp-base64')
 
 gulp.task('build_css', function () {
   return gulp.src([`${config.srcPath}/**/*.css`, `!${config.srcPath}/static/_vendor/**/*.css`].concat((config.sass || config.scss) ? [`${config.srcPath}/**/*.{scss,sass}`, `!${config.srcPath}/_scss/**/*.scss`, `!${config.srcPath}/_modules/**/*.{scss,sass}`] : []))
@@ -218,10 +218,10 @@ gulp.task('build_js', function () {
 
 
 // 图片压缩
-var imagemin = require('gulp-imagemin')
+const imagemin = require('gulp-imagemin')
 const imageminMozjpeg = require('imagemin-mozjpeg')
-var cache = require('gulp-cache') // 缓存压缩图片，避免重复压缩
-var tiny = require('gulp-tinypng-nokey')
+const cache = require('gulp-cache') // 缓存压缩图片，避免重复压缩
+const tiny = require('gulp-tinypng-nokey')
 
 gulp.task('jpgmin', function () {
   gulp.src(`${config.srcPath}/**/*.{jpg,jpeg}`)
@@ -247,8 +247,8 @@ gulp.task('pngmin', function () {
 const spritesmith = require('gulp.spritesmith')
 gulp.task('sprites', function () {
   // 读取 sprites
-  var spritesList = fs.readdirSync('sprites')
-  var sprites = gulp.src('sprites/*/*.{jpg,png}')
+  let spritesList = fs.readdirSync('sprites')
+  let sprites = gulp.src('sprites/*/*.{jpg,png}')
   spritesList.forEach((spritesItem) => {
     sprites = sprites.pipe(gulpIf(`${spritesItem}/*.{jpg,png,svg}`, spritesmith({
       imgName: spritesItem + '.png',
