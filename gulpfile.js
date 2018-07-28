@@ -298,7 +298,6 @@ gulp.task('webphtml', function () {
         var imgEl = $(this)
         var src = imgEl.attr('src')
         if (/^http/.test(src)) return
-        console.log(src)
         imgEl.removeAttr('src')
         imgEl.attr('data-src', src)
       })
