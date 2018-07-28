@@ -194,7 +194,7 @@ gulp.task('build_css', function () {
   return gulp.src([`${config.srcPath}/**/*.css`, `!${config.srcPath}/static/_vendor/**/*.css`].concat((config.sass || config.scss) ? [`${config.srcPath}/**/*.{scss,sass}`, `!${config.srcPath}/_scss/**/*.scss`, `!${config.srcPath}/_modules/**/*.{scss,sass}`] : []))
     .pipe(gulpIf(config.build.cssSourcemap, sourcemaps.init()))
     .pipe(gulpIf((config.sass || config.scss), sass({ outputStyle: 'expanded' }).on('error', sass.logError)))
-    .pipe(gulpIf(!!config.build.base64, base64({ maxImageSize: base64 })))
+    .pipe(gulpIf(!!config.build.base64, base64({ maxImageSize: config.build.base64 })))
     .pipe(postcss())
     .pipe(gulpIf(config.build.cssmin, cleanCSS({ rebase: false })))
     .pipe(gulpIf(config.build.versionHash, rev()))
@@ -239,7 +239,7 @@ gulp.task('sprites', function () {
     sprites = sprites.pipe(gulpIf(`${spritesItem}/*.{jpg,png,svg}`, spritesmith({
       imgName: spritesItem + '.png',
       cssName: spritesItem + '.css',
-      imgPath: `./sprites/${spritesItem}.png`
+      imgPath: `./${spritesItem}.png`
     })))
   })
   return sprites.pipe(gulp.dest(`${config.srcPath}/static/sprites/`))
@@ -259,3 +259,49 @@ gulp.task('start', ['build'], function () {
     }
   })
 })
+
+
+// 一个命令兼容webp
+
+gulp.task('webp', ['generateWebp', 'webpcss', 'webphtml'])
+const generateWebp = require('gulp-webp')
+gulp.task('generateWebp', function () {
+  gulp.src('dist/**/*.{png,jpg,jpeg}')
+    .pipe(generateWebp())
+    .pipe(gulp.dest('./dist'))
+})
+
+const webpcss = require('gulp-webpcss')
+const cssnano = require('gulp-cssnano')
+gulp.task('webpcss', function () {
+  gulp.src('dist/**/*.css')
+    .pipe(webpcss({
+      webpClass: '.__webp__',
+      replace_from: /\.(png|jpg|jpeg)/,
+      replace_to: '.webp',
+    }))
+    .pipe(cssnano())
+    .pipe(gulp.dest('./dist'))
+})
+
+const cheerio = require('gulp-cheerio')
+gulp.task('webphtml', function () {
+  return gulp
+    .src('dist/**/*.html')
+    .pipe(cheerio(function ($, file) {
+      // 插入webp.js
+      if ($('#__webp__').length > 0) return
+
+      var webpJs = fs.readFileSync('__webp__.js', 'utf-8')
+      $('head').append(`<script id="__webp__">${webpJs}</script>`)
+
+      $('img[src]').each(function () {
+        var imgEl = $(this)
+        var src = imgEl.attr('src')
+        imgEl.removeAttr('src')
+        imgEl.attr('data-src', src)
+      })
+    }))
+    .pipe(gulp.dest('dist'))
+})
+

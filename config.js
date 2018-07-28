@@ -8,7 +8,7 @@ module.exports = {
     htmlmin: true,
     cssmin: true,
     jsmin: true,
-    base64: 10 * 1024, // (bytes) 使用css中图片使用相对路径，否者无效
+    base64: 4 * 1024, // (bytes) 使用css中图片使用相对路径，否者无效
     // cssSourcemap: true,
     // jsSourcemap: true,
     // cdn: 'http://your/cdn/url',
