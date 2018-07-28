@@ -37,6 +37,11 @@
 ### `npm run sp`
 把根目录下的sprites文件夹下的子目录内的所有文件夹中的png和jpg的图片，以子文件夹目录为单位生产雪碧图，文件名为子目录名
 
+### 在执行完`npm run build`后执行`npm run webp`
+#### 默认情况下html中的`img[src]`会被处理成`img[data-src]`
+- 当img的src为`http`开头则会被忽略该处理
+- 当img的className中包含`not-webp`开头则会被忽略该处理
+
 ### `npm run lint`
 eslint检测
 
