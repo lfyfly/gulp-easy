@@ -1,4 +1,4 @@
-# dev-easy (github)[https://github.com/lfyfly/dev-easy.git]
+# gulp-easy [github](https://github.com/lfyfly/gulp-easy.git)
 
 ## 1、简介
 使用gulp搭建一个传统的多页面前端项目的开发环境
