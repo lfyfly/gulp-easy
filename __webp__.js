@@ -8,7 +8,7 @@
     }
   }
   var supportWebp = checkWebp()
-  if (supportWebp) document.querySelector('html').className = document.querySelector('html').className + '__webp__'
+  if (supportWebp) document.querySelector('html').className = document.querySelector('html').className + ' __webp__'
   window.addEventListener('DOMContentLoaded', function () {
     var imgEls = document.querySelectorAll('img[data-src]')
     for (var i = 0; i < imgEls.length; i++) {
