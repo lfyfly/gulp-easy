@@ -147,7 +147,7 @@ gulp.task('babel', function () {
     .pipe(gulp.dest(config.tmpPath))
 })
 // build
-gulp.task('build', ['del_dist', 'move__vendor', 'build_css', 'build_js', 'imgmin'], function () {
+gulp.task('build', ['del_dist', 'move__vendor', 'copy', 'build_css', 'build_js', 'imgmin'], function () {
   gulp.start('build_html')
 })
 
@@ -160,6 +160,12 @@ gulp.task('move__vendor', function () {
   gulp.src(`${config.srcPath}/static/_vendor/**/*.*`)
     .pipe(gulp.dest('dist/static/_vendor'))
 })
+
+gulp.task('copy', function () {
+  gulp.src([`${config.srcPath}/**/*.{ico,svg,gif,woff2,eot,ttf,otf,mp4,webm,ogg,mp3,wav,flac,aac}`])
+    .pipe(gulp.dest('dist'))
+})
+
 const htmlminConfig = {
   // removeComments: true,//清除HTML注释
   collapseWhitespace: true, // 压缩HTML
@@ -297,7 +303,8 @@ gulp.task('webphtml', function () {
       $('img[src]:not(.not-webp)').each(function () {
         var imgEl = $(this)
         var src = imgEl.attr('src')
-        if (/^http/.test(src)) return
+        if (/^http|\.(gif|svg)$/.test(src)) return
+
         imgEl.css('visibility', 'hidden')
         imgEl.removeAttr('src')
         imgEl.attr('data-src', src)
