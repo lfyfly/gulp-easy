@@ -174,7 +174,7 @@ proxyTable | 代理配置，[http-proxy-middleware](https://github.com/chimurai/
 推荐使用`sea.js`或`require.js`进行模块管理
 
 ### 7.2 为什么不在gulp中配置eslint？
-推荐使用浏览器插件进行提示，还可以配置保存时自动修复eslint
+推荐使用编辑器插件进行提示，还可以配置保存时自动修复eslint
 
 ### 7.3 js中如何判断是否为开发模式
 
